@@ -24,6 +24,12 @@ public class jsonherotag {
 
             brr= new InputStreamReader(new FileInputStream("lfhot.json"),"UTF-8");
             pgh=js.fromJson(brr,pagehot[].class);
+            for(pagehot ph:pgh){
+                int i=ph.getCommentNum();
+                int a=ph.getHotIndex();
+                a=i*10+a;
+                ph.setHotIndex(a);
+            }
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
