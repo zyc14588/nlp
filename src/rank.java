@@ -5,6 +5,7 @@ public class rank {
     private pagehot[]pgh;
     private TreeMap ranks;
     private TreeMap ranksh;
+    private TreeMap ranktt;
     private List<Map.Entry<String, Integer>> list = new ArrayList<>();
     public rank(page[]pg,pagehot[]pgh){
         this.pg=pg;
@@ -12,15 +13,29 @@ public class rank {
         int i=0;
         ranks=new TreeMap<String,Integer>();
         ranksh=new TreeMap<String,Integer>();
+        ranktt=new TreeMap<String,Integer>();
         for(page pp:this.pg)for(String tags :pp.getTag()){
             assert ranks != null;
+            assert ranktt != null;
             if(ranks.containsKey(tags)){
                 i=(int)ranks.get(tags);
                 i=i+1;
+                i=i+pp.getHotIndex();
+                i=i+pp.getCommentNum()*10;
                 ranks.put(tags,i);
             }
             else{
                 ranks.put(tags,1);
+            }
+            if(ranktt.containsKey(tags)){
+                i=(int)ranktt.get(tags);
+                i=i+1;
+                i=i+pp.getHotIndex();
+                i=i+pp.getCommentNum()*10;
+                ranktt.put(tags,i);
+            }
+            else{
+                ranktt.put(tags,1);
             }
         }
         for(pagehot pp:this.pgh){
@@ -35,6 +50,16 @@ public class rank {
                 }
                 else{
                     ranksh.put(tags,1);
+                }
+                if(ranktt.containsKey(tags)){
+                    i=(int)ranktt.get(tags);
+                    i=i+1;
+                    i=i+pp.getHotIndex();
+                    i=i+pp.getCommentNum()*10;
+                    ranktt.put(tags,i);
+                }
+                else{
+                    ranktt.put(tags,1);
                 }
             }
         }
@@ -129,5 +154,16 @@ public class rank {
         }
         */
 
+    }
+    public void showranktt(){
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(ranktt.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
+            public int compare(Map.Entry<String,Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue() < o2.getValue() ? 1:-1;
+            }
+        });
+        for( Map.Entry<String, Integer> ee:list){
+            System.out.println("话题："+ee.getKey()+"\t 热度："+ee.getValue());
+        }
     }
 }

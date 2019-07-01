@@ -30,7 +30,8 @@ public class Main {
            tgd.devcp();
            tgd.removedup();
            rank rr=new rank(tgd.getPg(),tgd.getPgh());
-           //rr.showranks();
+           rr.showranks();
            rr.showranksh();
+           rr.showranktt();
     }
 }
