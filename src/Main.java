@@ -28,8 +28,9 @@ public class Main {
            tagdev tgd=new tagdev(jht.getHh(),jht.getTg(),jht.getPg(),jht.getPgh());
            tgd.rename();
            tgd.devcp();
+           tgd.removedup();
            rank rr=new rank(tgd.getPg(),tgd.getPgh());
-           rr.showranks();
+           //rr.showranks();
            rr.showranksh();
     }
 }

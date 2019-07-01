@@ -12,8 +12,6 @@ public class rank {
         int i=0;
         ranks=new TreeMap<String,Integer>();
         ranksh=new TreeMap<String,Integer>();
-        ranks.put("",i);
-        ranksh.put("",i);
         for(page pp:this.pg)for(String tags :pp.getTag()){
             assert ranks != null;
             if(ranks.containsKey(tags)){
@@ -22,20 +20,25 @@ public class rank {
                 ranks.put(tags,i);
             }
             else{
-                ranks.put(tags,i);
+                ranks.put(tags,1);
             }
         }
-        for(pagehot pp:this.pgh)for(String tags :pp.getTag()){
-            assert ranksh != null;
-            if(ranksh.containsKey(tags)){
-                i=(int)ranksh.get(tags);
-                i=i+1;
-                ranksh.put(tags,i);
-            }
-            else{
-                ranksh.put(tags,i);
+        for(pagehot pp:this.pgh){
+            for(String tags :pp.getTag()){
+                assert ranksh != null;
+                if(ranksh.containsKey(tags)){
+                    i=(int)ranksh.get(tags);
+                    i=i+1;
+                    i=i+pp.getHotIndex();
+                    i=i+pp.getCommentNum()*10;
+                    ranksh.put(tags,i);
+                }
+                else{
+                    ranksh.put(tags,1);
+                }
             }
         }
+
     }
     public rank(page[]pg){
         this.pg=pg;

@@ -1,6 +1,8 @@
 import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.dictionary.stopword.CoreStopWordDictionary;
 import com.hankcs.hanlp.model.crf.CRFLexicalAnalyzer;
 import com.hankcs.hanlp.seg.Segment;
+import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.NLPTokenizer;
 
 import java.io.IOException;
@@ -30,11 +32,13 @@ public class word_dev {
         final String str1=str;
         return str1;
     }
-    /*public List<String>GetNameList(){
-        List<Term> termList = segment.seg(sentence);
-        List<String>stt;
-        for(Term tt:termList);
-    }*/
+    public List<String>GetNameList(){
+        List<Term> termList = segment.seg(str);
+        CoreStopWordDictionary.apply(termList);
+        List<String>stt=null;
+        for(Term tt:termList)stt.add(tt.word);
+        return stt;
+    }
     public void Reset(String str){
         this.str=str;
     }

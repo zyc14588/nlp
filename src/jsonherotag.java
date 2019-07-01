@@ -19,7 +19,7 @@ public class jsonherotag {
             brr= new InputStreamReader(new FileInputStream("dictionary.json"),"UTF-8");
             tg=js.fromJson(brr,tag[].class);
 
-            brr= new InputStreamReader(new FileInputStream("lf20190625_1110.json"),"UTF-8");
+            brr= new InputStreamReader(new FileInputStream("lf20190625_1110_rmdup.json"),"UTF-8");
             pg=js.fromJson(brr,page[].class);
 
             brr= new InputStreamReader(new FileInputStream("lfhot.json"),"UTF-8");
