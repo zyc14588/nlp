@@ -6,6 +6,7 @@ import com.hankcs.hanlp.seg.common.Term;
 import com.hankcs.hanlp.tokenizer.NLPTokenizer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class word_dev {
@@ -20,7 +21,7 @@ public class word_dev {
     public word_dev(String str) throws IOException {
         this.str=str;
         analyzer = new CRFLexicalAnalyzer();
-        segment= HanLP.newSegment().enableNameRecognize(true);
+        segment= HanLP.newSegment().enableNameRecognize(true).enableMultithreading(false).enablePlaceRecognize(false).enableOrganizationRecognize(false);
     }
     public String GetCRFdev(){
         str=analyzer.analyze(str).toStringWithoutLabels();
@@ -35,11 +36,13 @@ public class word_dev {
     public List<String>GetNameList(){
         List<Term> termList = segment.seg(str);
         CoreStopWordDictionary.apply(termList);
-        List<String>stt=null;
+        List<String>stt=new ArrayList<String>();
         for(Term tt:termList)stt.add(tt.word);
         return stt;
     }
+
     public void Reset(String str){
         this.str=str;
     }
+
 }

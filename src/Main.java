@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
        public static void main(String[] args) throws IOException {
@@ -33,5 +33,31 @@ public class Main {
            rr.showranks();
            rr.showranksh();
            rr.showranktt();
+           rr.ranktotxt();
+           rr.rankhottotxt();
+           rr.ranknewtotxt();
+           /*jsonherotag jst=new jsonherotag();
+           BufferedReader brr = null;
+           File writeName = null;
+           FileWriter writer = null;
+           BufferedWriter out = null;
+           try {
+               writeName = new File("C:\\Users\\zyc14588\\IdeaProjects\\nlp\\test_key_word.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
+               writeName.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖
+               writer = new FileWriter(writeName);
+               out= new BufferedWriter(writer);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           for(lofter ll:jst.getPg()){
+               if(ll.getText().length()<200)continue;
+               keyword kk=new keyword(ll.getText());
+               //word_dev wd=new word_dev(ll.getText());
+               //System.out.println("关键词:"+kk.GetKeyWord(5));
+               out.write(ll.getText());
+               out.write("\n"+"关键词:"+kk.GetKeyWord(5)+"\n");
+               out.flush();
+           }
+        */
     }
 }

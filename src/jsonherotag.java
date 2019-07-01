@@ -2,15 +2,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
+import java.util.List;
 
 public class jsonherotag {
     private Gson js;
     private Reader brr;
     private hero[] hh;
     private tag[] tg;
-    private page[]pg;
+    private lofter[]pg;
     private pagehot[] pgh;
     jsonherotag() throws FileNotFoundException {
+        keyword kk=new keyword();
         js=new GsonBuilder().create();
         try{
             brr= new InputStreamReader(new FileInputStream("dic.json"),"UTF-8");
@@ -19,8 +21,8 @@ public class jsonherotag {
             brr= new InputStreamReader(new FileInputStream("dictionary.json"),"UTF-8");
             tg=js.fromJson(brr,tag[].class);
 
-            brr= new InputStreamReader(new FileInputStream("lf20190625_1110_rmdup.json"),"UTF-8");
-            pg=js.fromJson(brr,page[].class);
+            brr= new InputStreamReader(new FileInputStream("lofter.json"),"UTF-8");
+            pg=js.fromJson(brr,lofter[].class);
 
             brr= new InputStreamReader(new FileInputStream("lfhot.json"),"UTF-8");
             pgh=js.fromJson(brr,pagehot[].class);
@@ -29,6 +31,22 @@ public class jsonherotag {
                 int a=ph.getHotIndex();
                 a=i*10+a;
                 ph.setHotIndex(a);
+                kk.Reset(ph.getMain().toString());
+                List<String> kw=kk.GetKeyWord(5);
+                for(String st:kw){
+                    List<String>tgs=ph.getTag();
+                    if(tgs.contains(st))continue;
+                    else tgs.add(st);
+                }
+            }
+            for(lofter ll:pg){
+                kk.Reset(ll.getText());
+                List<String> kw=kk.GetKeyWord(5);
+                for(String st:kw){
+                    List<String>tgs=ll.getTag();
+                    if(tgs.contains(st))continue;
+                    else tgs.add(st);
+                }
             }
         }
         catch (FileNotFoundException e) {
@@ -45,7 +63,7 @@ public class jsonherotag {
         return tg;
     }
 
-    public page[] getPg() {
+    public lofter[] getPg() {
         return pg;
     }
 
