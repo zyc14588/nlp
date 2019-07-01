@@ -3,15 +3,15 @@ import java.util.*;
 public class rank {
     private page[] pg;
     private pagehot[]pgh;
-    private Map ranks;
-    private Map ranksh;
+    private TreeMap ranks;
+    private TreeMap ranksh;
     private List<Map.Entry<String, Integer>> list = new ArrayList<>();
     public rank(page[]pg,pagehot[]pgh){
         this.pg=pg;
         this.pgh=pgh;
         int i=0;
-        ranks=new HashMap();
-        ranksh=new HashMap();
+        ranks=new TreeMap<String,Integer>();
+        ranksh=new TreeMap<String,Integer>();
         ranks.put("",i);
         ranksh.put("",i);
         for(page pp:this.pg)for(String tags :pp.getTag()){
@@ -40,8 +40,8 @@ public class rank {
     public rank(page[]pg){
         this.pg=pg;
         this.pgh=pgh;
-        ranks=new HashMap();
-        ranksh=new HashMap();
+        ranks=new TreeMap();
+        ranksh=new TreeMap();
         int i=0;
         for(page pp:this.pg)for(String tags :pp.getTag()){
             if(ranks.containsKey(tags)){
@@ -57,8 +57,8 @@ public class rank {
     public rank(pagehot[]pgh){
         this.pg=pg;
         this.pgh=pgh;
-        ranks=new HashMap<String,Integer>();
-        ranksh=new HashMap<String,Integer>();
+        ranks=new TreeMap<String,Integer>();
+        ranksh=new TreeMap<String,Integer>();
         int i=0;
         for(pagehot pp:this.pgh)for(String tags :pp.getTag()){
             if(ranksh.containsKey(tags)){
@@ -80,6 +80,16 @@ public class rank {
     }
 
     public void showranks(){
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(ranks.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
+            public int compare(Map.Entry<String,Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue() < o2.getValue() ? 1:-1;
+            }
+        });
+        for( Map.Entry<String, Integer> ee:list){
+            System.out.println("话题："+ee.getKey()+"\t 热度："+ee.getValue());
+        }
+        /*
         String key;
         Integer integ = null;
         Iterator iter = ranks.entrySet().iterator();
@@ -91,18 +101,19 @@ public class rank {
             integ = (Integer)entry.getValue();
             System.out.println("话题："+key+"\t 热度："+integ);
         }
+         */
     }
     public void showranksh(){
         List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(ranksh.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>> () {
-            //降序排序
-            @Override
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                //return o1.getValue().compareTo(o2.getValue());
-                return o2.getValue().compareTo(o1.getValue());
+        Collections.sort(list, new Comparator<Map.Entry<String,Integer>>() {
+            public int compare(Map.Entry<String,Integer> o1, Map.Entry<String, Integer> o2) {
+                return o1.getValue() < o2.getValue() ? 1:-1;
             }
         });
-        String key;
+        for( Map.Entry<String, Integer> ee:list){
+            System.out.println("话题："+ee.getKey()+"\t 热度："+ee.getValue());
+        }
+        /*String key;
         Integer integ = null;
         Iterator iter = ranksh.entrySet().iterator();
         while(iter.hasNext()) {
@@ -113,5 +124,7 @@ public class rank {
             integ = (Integer)entry.getValue();
             System.out.println("话题："+key+"\t 热度："+integ);
         }
+        */
+
     }
 }

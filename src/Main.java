@@ -29,7 +29,7 @@ public class Main {
            tgd.rename();
            tgd.devcp();
            rank rr=new rank(tgd.getPg(),tgd.getPgh());
-           //rr.showranks();
+           rr.showranks();
            rr.showranksh();
     }
 }
