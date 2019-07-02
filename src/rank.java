@@ -26,7 +26,7 @@ public class rank {
                 ranks.put(tags,i);
             }
             else{
-                ranks.put(tags,1);
+                ranks.put(tags,0);
             }
             if(ranktt.containsKey(tags)){
                 i=(int)ranktt.get(tags);
@@ -36,7 +36,7 @@ public class rank {
                 ranktt.put(tags,i);
             }
             else{
-                ranktt.put(tags,1);
+                ranktt.put(tags,0);
             }
         }
         for(pagehot pp:this.pgh){
@@ -50,7 +50,7 @@ public class rank {
                     ranksh.put(tags,i);
                 }
                 else{
-                    ranksh.put(tags,1);
+                    ranksh.put(tags,0);
                 }
                 if(ranktt.containsKey(tags)){
                     i=(int)ranktt.get(tags);
@@ -60,7 +60,7 @@ public class rank {
                     ranktt.put(tags,i);
                 }
                 else{
-                    ranktt.put(tags,1);
+                    ranktt.put(tags,0);
                 }
             }
         }
