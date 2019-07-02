@@ -1,63 +1,45 @@
-import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
 public class Main {
        public static void main(String[] args) throws IOException {
-           /*keyword txt=new keyword();
-           word_dev dev=new word_dev();
-           txtload op=new txtload();
-            String xx="";
-            String str="";
-            while(true) {
-                xx=op.Readln();
-                 if (xx==null) break;
-                if(xx.equals("main:")){
-                   str=null;
-                    while(true){
-                        xx=op.Readln();
-                         if(xx.equals("other:"))break;
-                        str = str+xx;
-                  }
-                 }
-            else continue;
-                if(str.length()<200)continue;
-                 txt.Reset(str);
-                 op.Write(txt.GetKeyWord(10));
-             }
-           */
            jsonherotag jht=new jsonherotag();
            tagdev tgd=new tagdev(jht.getHh(),jht.getTg(),jht.getPg(),jht.getPgh());
            tgd.rename();
            tgd.devcp();
            tgd.removedup();
            rank rr=new rank(tgd.getPg(),tgd.getPgh());
-           rr.showranks();
-           rr.showranksh();
-           rr.showranktt();
            rr.ranktotxt();
            rr.rankhottotxt();
            rr.ranknewtotxt();
-           /*jsonherotag jst=new jsonherotag();
-           BufferedReader brr = null;
-           File writeName = null;
-           FileWriter writer = null;
-           BufferedWriter out = null;
-           try {
-               writeName = new File("C:\\Users\\zyc14588\\IdeaProjects\\nlp\\test_key_word.txt"); // 相对路径，如果没有则要建立一个新的output.txt文件
-               writeName.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖
-               writer = new FileWriter(writeName);
-               out= new BufferedWriter(writer);
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-           for(lofter ll:jst.getPg()){
-               if(ll.getText().length()<200)continue;
-               keyword kk=new keyword(ll.getText());
-               //word_dev wd=new word_dev(ll.getText());
-               //System.out.println("关键词:"+kk.GetKeyWord(5));
-               out.write(ll.getText());
-               out.write("\n"+"关键词:"+kk.GetKeyWord(5)+"\n");
-               out.flush();
-           }
-        */
+           new CoupleList().countMain();;
+           JFrame frame=new JFrame("总榜单");
+           frame.setLayout(new GridLayout(2,2,10,10));
+           frame.add(new BarChart("cpRank.txt","CP总榜单").getChartPanel());           //添加柱形图
+           frame.add(new BarChart("rank.txt","英雄总榜单").getChartPanel());           //添加柱形图的另一种效果
+           frame.add(new PieChart("cpRank.txt","CP总榜单").getChartPanel());           //添加饼状图
+           frame.add(new PieChart("rank.txt","英雄总榜单").getChartPanel());     //添加折线图
+           frame.setBounds(50, 50, 800, 600);
+           frame.setVisible(true);
+
+           JFrame frame1=new JFrame("新帖榜单");
+           frame1.setLayout(new GridLayout(2,2,10,10));
+           frame1.add(new BarChart("cpTotListRank.txt","CP新帖榜单").getChartPanel());           //添加柱形图
+           frame1.add(new BarChart("rank_new.txt","英雄新帖榜单").getChartPanel());           //添加柱形图的另一种效果
+           frame1.add(new PieChart("cpTotListRank.txt","CP新帖榜单").getChartPanel());           //添加饼状图
+           frame1.add(new PieChart("rank_new.txt","英雄新帖榜单").getChartPanel());     //添加折线图
+           frame1.setBounds(50, 50, 800, 600);
+           frame1.setVisible(true);
+
+           JFrame frame2=new JFrame("热度榜单");
+           frame2.setLayout(new GridLayout(2,2,10,10));
+           frame2.add(new BarChart("cpHotListRank.txt","CP热度榜单").getChartPanel());           //添加柱形图
+           frame2.add(new BarChart("rank_hot.txt","英雄热度榜单").getChartPanel());           //添加柱形图的另一种效果
+           frame2.add(new PieChart("cpHotListRank.txt","CP热度榜单").getChartPanel());           //添加饼状图
+           frame2.add(new PieChart("rank_hot.txt","英雄热度榜单").getChartPanel());     //添加折线图
+           frame2.setBounds(50, 50, 800, 600);
+           frame2.setVisible(true);
+
     }
 }

@@ -153,7 +153,7 @@ public class rank {
             }
         });
         for( Map.Entry<String, Integer> ee:list){
-            out.write("话题："+ee.getKey()+"\t 热度："+ee.getValue()+"\n");
+            out.write(ee.getKey()+"\t"+ee.getValue()+"\n");
             out.flush();
         }
     }
@@ -177,7 +177,7 @@ public class rank {
             }
         });
         for( Map.Entry<String, Integer> ee:list){
-            out.write("话题："+ee.getKey()+"\t 热度："+ee.getValue()+"\n");
+            out.write(ee.getKey()+"\t"+ee.getValue()+"\n");
             out.flush();
         }
     }
@@ -201,7 +201,7 @@ public class rank {
             }
         });
         for( Map.Entry<String, Integer> ee:list){
-            out.write("话题："+ee.getKey()+"\t 热度："+ee.getValue()+"\n");
+            out.write(ee.getKey()+"\t"+ee.getValue()+"\n");
             out.flush();
         }
     }
