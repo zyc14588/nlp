@@ -13,14 +13,13 @@ public class CoupleList {
     public Couple[] cplist;
     private Passage[] hotList;
     private Passage[] totalList;
-
+	private List<Couple> cplistn;
+	private List<Couple> cplisth;
+	private List<Couple> cplistt;
     public CoupleList() throws IOException {
-        //Gson gson=new Gson();
-        BufferedReader br=new BufferedReader(new FileReader("cpdic.json"));
-        BufferedReader br1=new BufferedReader(new FileReader("lfhot.json"));
-        BufferedReader br2=new BufferedReader(new FileReader("lf20190625_1110_rmdup.json"));
-
-        //gson.fromJson(br, getCplist().getClass());
+        BufferedReader br=new BufferedReader(new FileReader("json\\cpdic.json"));
+        BufferedReader br1=new BufferedReader(new FileReader("json\\lfhot.json"));
+        BufferedReader br2=new BufferedReader(new FileReader("json\\lf20190625_1110_rmdup.json"));
         
         cplist = new Gson().fromJson(br,Couple[].class);
         hotList=new Gson().fromJson(br1, Passage[].class);
@@ -29,12 +28,6 @@ public class CoupleList {
         br.close();
         br1.close();
         br2.close();
-       
-        
-        /*for(int i=0;i<cplist.length;i++){
-            System.out.println(cplist[i].getTag());
-        }*/
-
     }
 
     public Couple[] getCplist() {
@@ -50,58 +43,60 @@ public class CoupleList {
     		cplist[i].resetHot();
     	}
     }
-    
-    public void countMain() throws IOException{
-    	BufferedWriter bw=new BufferedWriter(new FileWriter("cpHotListRank.txt"));
-    	BufferedWriter bw1=new BufferedWriter(new FileWriter("cpTotListRank.txt"));
-    	BufferedWriter bw2=new BufferedWriter(new FileWriter("cpRank.txt"));
-    	for(int i=0;i<cplist.length;i++){
-    		for(int j=0;j<hotList.length;j++){
-    			if(hotList[j].getTag().contains(cplist[i].getTag())){
-    				cplist[i].addHot(hotList[j].getHotIndex()+hotList[j].getCommentNum()*10);
-    			}
-    		}
-    	}
-    	List<Couple> l=Arrays.asList(cplist);
-    	Collections.sort(l);
-    	for(int i=0;i<l.size();i++){
-    		bw.write(l.get(i).getTag()+"\t"+l.get(i).getHotIndex()+"\n");
-    		bw.flush();
-    	}
-    	bw.close();
-    	
-    	for(int i=0;i<cplist.length;i++){
-    		for(int j=0;j<totalList.length;j++){
-    			if(totalList[j].getTag().contains(cplist[i].getTag())){
-    				cplist[i].addHot(totalList[j].getHotIndex()+totalList[j].getCommentNum()*10);
-    			}
-    		}
-    	}
-    	l=Arrays.asList(cplist);
-    	Collections.sort(l);
-    	for(int i=0;i<l.size();i++){
-    		bw2.write(l.get(i).getTag()+"\t"+l.get(i).getHotIndex()+"\n");
-    		bw2.flush();
-    	}
-    	bw2.close();
-    	
-    	resetCpIndex();
-    	
-    	for(int i=0;i<cplist.length;i++){
-    		for(int j=0;j<totalList.length;j++){
-    			if(totalList[j].getTag().contains(cplist[i].getTag())){
-    				cplist[i].addHot(totalList[j].getHotIndex()+totalList[j].getCommentNum()*10);
-    			}
-    		}
-    	}
-    	l=Arrays.asList(cplist);
-    	Collections.sort(l);
-    	for(int i=0;i<l.size();i++){
-    		bw1.write(l.get(i).getTag()+"\t"+l.get(i).getHotIndex()+"\n");
-    		bw1.flush();
-    	}
-    	bw1.close();
-    	
+    public void sort(){
+		for(int i=0;i<cplist.length;i++){
+			for(int j=0;j<hotList.length;j++){
+				if(hotList[j].getTag().contains(cplist[i].getTag())){
+					cplist[i].addHot(hotList[j].getHotIndex()+hotList[j].getCommentNum()*10);
+				}
+			}
+		}
+		cplisth=Arrays.asList(cplist);
+		Collections.sort(cplisth);
+		for(int i=0;i<cplist.length;i++){
+			for(int j=0;j<totalList.length;j++){
+				if(totalList[j].getTag().contains(cplist[i].getTag())){
+					cplist[i].addHot(totalList[j].getHotIndex()+totalList[j].getCommentNum()*10);
+				}
+			}
+		}
+		cplistt=Arrays.asList(cplist);
+		Collections.sort(cplistt);
+		resetCpIndex();
+
+		for(int i=0;i<cplist.length;i++){
+			for(int j=0;j<totalList.length;j++){
+				if(totalList[j].getTag().contains(cplist[i].getTag())){
+					cplist[i].addHot(totalList[j].getHotIndex()+totalList[j].getCommentNum()*10);
+				}
+			}
+		}
+		cplistn=Arrays.asList(cplist);
+		Collections.sort(cplistn);
+	}
+	public void totxt()throws IOException{
+		BufferedWriter bw=new BufferedWriter(new FileWriter("txt\\cpHotListRank.txt"));
+		BufferedWriter bw1=new BufferedWriter(new FileWriter("txt\\cpTotListRank.txt"));
+		BufferedWriter bw2=new BufferedWriter(new FileWriter("txt\\cpRank.txt"));
+		for(int i=0;i<cplisth.size();i++){
+			bw.write(cplisth.get(i).getTag()+"\t"+cplisth.get(i).getHotIndex()+"\n");
+			bw.flush();
+		}
+		bw.close();
+		for(int i=0;i<cplistt.size();i++){
+			bw2.write(cplistt.get(i).getTag()+"\t"+cplistt.get(i).getHotIndex()+"\n");
+			bw2.flush();
+		}
+		bw2.close();
+		for(int i=0;i<cplistn.size();i++){
+			bw1.write(cplistn.get(i).getTag()+"\t"+cplistn.get(i).getHotIndex()+"\n");
+			bw1.flush();
+		}
+		bw1.close();
+	}
+    public void countMain()throws IOException {
+		sort();
+		totxt();
     }
     
 }

@@ -1,9 +1,3 @@
-import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -13,6 +7,12 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class BarChart {
 	ChartPanel frame1;
@@ -55,7 +55,7 @@ public class BarChart {
         	sc=new Scanner(br.readLine());
         	str=sc.next();
         	index=sc.nextInt();
-        	dataset.setValue(index,str,str);
+        	dataset.setValue(index,str,str);//数据接口
         	sc.close();
         }
         
